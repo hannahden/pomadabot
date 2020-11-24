@@ -25,13 +25,36 @@ def prettify_rating(mark):
     else:
         return string[0]+'\\' +string[1:]
 
+def prettify_name(name):
+    new_name = name.replace('_', '\\_') \
+                   .replace('*', '\\*') \
+                   .replace('[', '\\[') \
+                   .replace(']', '\\]') \
+                   .replace('(', '\\(') \
+                   .replace(')', '\\)') \
+                   .replace('-', '\\-') \
+                   .replace('|', '\\|') \
+                   .replace('.', '\\.') \
+                   .replace('!', '\\!') \
+                   .replace('`', '\\`') \
+                   .replace('~', '\\~') \
+                   .replace('>', '\\>') \
+                   .replace('#', '\\#') \
+                   .replace('+', '\\+') \
+                   .replace('=', '\\=') \
+                   .replace('{', '\\{') \
+                   .replace('}', '\\}') 
+
+
+    return new_name
+
 def get_answer_from_top(top):
     start = 'Вот что я нашел\: \n \n'
     irec_str = 'https://irecommend\.ru'
     hyperlink_template = ' [тык]({})'
     
     for item in top:
-        start += ''.join([item[0], '\:', hyperlink_template.format(irec_str+item[1]), '\n'])
+        start += ''.join([prettify_name(item[0]), '\:', hyperlink_template.format(irec_str+item[1]), '\n'])
         start += ''.join([square, ' ', 'Отзывов\: {}\n'.format(item[2]), square, ' ', 'Средняя оценка\: {}\n \n'.format(prettify_rating(item[3]))])
         
     start += 'Обращайся\!' + krisa
